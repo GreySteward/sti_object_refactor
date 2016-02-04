@@ -1,20 +1,24 @@
-function(atticus, jem, boo, scout) {
-	var atticus:"Atticus", "2405", "47000", 3;
-	var jem:"Jem", "62347", "63500", 4;
-	var boo:"Boo", "11435", "54000", 3;
-	var scout:"Scout", "6243", "74750", 5
-
+function Employee(name, empNumber, currentSalary, rating) {
+	this.name = name;
+	this.empNumber = empNumber;
+	this.currentSalary = currentSalary;
+	this.rating = rating;
 };
+	var atticus = new Employee ("Atticus", "2405", "47000", 3);
+	var jem = new Employee("Jem", "62347", "63500", 4);
+	var boo = new Employee("Boo", "11435", "54000", 3);
+	var scout = new Employee("Scout", "6243", "74750", 5);
 
 var employees = [atticus, jem, boo, scout];
 
 function calculateSTI(empInfo) {
-	var name = empInfo[0];
-	var empNumber = empInfo[1];
-	var currentSalary = Math.round(parseFloat(empInfo[2]));
-	var rating = empInfo[3];
+	var name = empInfo.name;
+	var empNumber = empInfo.empNumber;
+	var currentSalary = Math.round(parseFloat(empInfo.currentSalary));
+	var rating = empInfo.rating;
+
 	
-	var processedEmployee = [];
+	var processedEmployee = {};
 	var bonus = 0;
 	var bonusPercentage = 0;
 	var adjSalary = currentSalary;	// base + STI
@@ -43,24 +47,24 @@ function calculateSTI(empInfo) {
 	bonusPercentage = adjustBonusPercentage(empNumber, bonusPercentage, currentSalary);
 	
 	// build processed array
-	processedEmployee[0] = name;
-	processedEmployee[1] = bonusPercentage;
+	processedEmployee.name = name;
+	processedEmployee.bonusPercentage = bonusPercentage;
 
 	bonus = Math.round(bonusPercentage * currentSalary);
 	adjSalary = currentSalary + bonus;
 
-	processedEmployee[2] = adjSalary;
-	processedEmployee[3] = bonus;
+	processedEmployee.adjSalary= adjSalary;
+	processedEmployee.bonus = bonus;
 
 	return processedEmployee;
 }
 
-function adjustBonusPercentage(empNumber, bonusPercentage, currentSalary) {
+function adjustBonusPercentage(empNumber, bonusPercentage, salary) {
 	if(empNumber.length == 4) {
 		bonusPercentage += .05;
 	}
 
-	if(currentSalary > 65000) {
+	if(salary > 65000) {
 		bonusPercentage -= .01;
 	}
 
